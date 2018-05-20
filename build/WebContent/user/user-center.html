@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>用户中心界面</title>
+
+<link type="text/css" rel="stylesheet"
+	href="../css/user-centercss/user-center.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/homepageCSS/header_top.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/homepageCSS/header.css" />
+<link rel="stylesheet" type="text/css" href="../css/xcConfirm.css" />
+<link rel="stylesheet" type="text/css" href="../css/user-centercss/user-paging.css" />
+
+<!-- 百度CDN jquery库 -->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- jquery+CSS实现的弹出框js文件 -->
+<script src="../js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<!-- 分页功能 -->
+<script src="../js/paging.js"></script>
+
+</head>
+
+<body>
+	<div class="header_top">
+		<div class="w1000">
+			<ul id="loginNav_unlogin" class="login_menu left">
+
+				<li class="login_menu_item">您好，欢迎光临汽车票网上售票系统!</li>
+				<li class="login_menu_item">请</li>
+				<li class="login_menu_item"><a href="../login.html">登录</a></li>
+				<li class="login_menu_item"><a href="../register.html">注册</a></li>
+			</ul>
+			<ul id="loginNav_login" class="login_menu left">
+
+				<li class="login_menu_item">您好，<a id="nickName" href="user-center.html">&nbsp</a></li>
+
+				<li class="login_menu_item"><a id="logout" href="javascript:">注销</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+
+	<div class="header w1000">
+		<div class="site_logo_img left">
+			<a href="../index.html"><img src="../images/busImage1.jpg"></img></a>
+		</div>
+		<div class="header_h left">
+			<h1>欢迎来到汽车票网上订票系统！</h1>
+			<br>welcome to Bus Online Ticket System!
+		</div>
+
+	</div>
+	<div class="clear"></div>
+	<br />
+
+	<div class="user-center w1000">
+		<div class="user-nav">
+			<ul>
+				<li><a href="user-center.html" class="active"
+					style="font-size: 20px;">用户主页</a></li>
+				<li><a style="font-size: 20px;">订单中心</a></li>
+				<li><a href="javascript:" id="history_order_ID">历史订单</a></li>
+				<li><a href="../index.html">去订票</a></li>
+
+				<li><a style="font-size: 20px;">账户中心</a></li>
+				<li><a href="javascript:" id="userInfoBtnID">个人资料</a></li>
+				<li><a href="javascript:" id="chpwdIDBtnID">修改密码</a></li>
+
+			</ul>
+		</div>
+
+		<div class="user-content">
+
+			<!-- 历史订单 -->
+			<div class="history-order nodisplay" id="hisOrderID">
+				<div class="history-order-nav">
+					<ul>
+						<li><a href="javascript:" id="orderStatus_Y">未乘车</a></li>
+						<li><a href="javascript:" id="orderStatus_all">历史订单</a></li>
+					</ul>
+				</div>
+
+				<div class="history-order-list ">
+					<table >
+						<caption id="hisorder_table_caption_ID">订单详情</caption>
+						<thead id="hisorder_table_thead_ID">
+							<tr>
+								<th>订单编号</th>
+								<th>乘车时间</th>
+								<th>始发站点</th>
+								<th>到达站点</th>
+								<th>票价</th>
+								<th>订单日期</th>
+								<th>订单状态</th>
+								<!-- 添加按钮：取消订单 -->
+								
+							</tr>
+						</thead>
+						<tbody id="hisorder_table_tbody_ID">
+							
+						</tbody>
+					</table>
+				</div>
+				
+				<hr style="width:100%;border-color:#ddd;border-top: 1px;"/><br>
+				<div class="box" id="orderpages_box"></div>
+			</div>
+			
+
+			<div class="clear"></div>
+			<!-- 个人资料和密码 -->
+			
+			<div class="userInfo nodisplay" id="userInfoID">
+				<div class="userInfo-content">
+					<form name="userInfoForm" onsubmit="return changeUserInfo();" method="POST">
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">*手机号：</label> <span
+								id="phoneNumberLabel">&nbsp;</span>
+						</div>
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">真实姓名：</label> <input
+								class="userInfo-input" id="name" type="text"
+								placeholder="1~20汉字或英文名"></input>
+				
+						</div>
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">昵称：</label> <input
+								class="userInfo-input" id="nickname" type="text"
+								placeholder="1~20汉字或英文名"></input>
+				
+						</div>
+				
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">身份证号：</label> <input
+								class="userInfo-input" id="ID" type="text" placeholder="请输入身份证号"></input>
+						</div>
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">邮箱地址：</label> <input
+								class="userInfo-input" id="emailAddress" type="text"
+								placeholder="请输入邮箱地址"></input>
+						</div>
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">性别：</label> <input name="sex"
+								type="radio" value="男" >男</input> <input name="sex"
+								type="radio" value="女">女</input>
+						</div>
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">是否学生：</label> <input name="isstudent"
+								type="radio" value="Y" >是</input> <input name="isstudent"
+								type="radio" value="N">否</input>
+						</div>
+						<div>
+							<button type="submit" class="userInfo-btn" id="changeUserInfoBtn">保存</button>
+						</div>
+				
+					</form>
+									
+				</div>
+			</div>		
+			
+			<div class="clear"></div>
+			
+			<!-- 修改密码 -->
+			<div class="userInfo nodisplay" id="chpwdID">
+				<div class="userInfo-content">
+					<form name="chpwdForm" onsubmit="return changePwd();" method="post">
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">旧密码：</label> <input
+								class="userInfo-input" name="oldPassword" id="oldPasswordID" type="password"
+								placeholder="请输入旧密码"></input>
+						</div>
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">新密码：</label> <input
+								class="userInfo-input" name="newPassword" id="newPasswordID" type="password"
+								placeholder="6-18位数字和字母组合"></input>
+						</div>
+						<div class="userInfo-content-item">
+							<label class="userInfo-label">确认密码：</label> <input
+								class="userInfo-input" name="confirmpwd" id="confirmpwdID" type="password"
+								placeholder="6-18位数字和字母组合"></input>
+						</div>
+						<div class="userInfo-content-item">
+							<button type="submit" class="userInfo-btn">保存</button>
+						</div>
+					
+					</form>
+					
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>
+
+
+<script>
+	//文档就绪事件,在文档加载完成后发送一次请求验证是否已登录
+	var islogin=false; //全局变量
+	var phoneNumber=null;
+	function isLogin() {
+		$.post("../islogin", //url
+		{ //请求参数
+			req_log : "islogin"
+		},
+		//回调函数
+		function(data, status) {
+			if (status == 404) {
+				alert("page not found!");
+			}
+			//alert("数据: \n" + data + "\n状态: " + status);
+			if (data == "false") {
+				$("#loginNav_login").hide();
+				$("#loginNav_unlogin").show();
+				islogin=false;
+			} else {
+				$("#loginNav_unlogin").hide();
+				$("#loginNav_login").show();
+				$("#nickName").text(data);
+				phoneNumber=data;
+				islogin=true;
+			}
+
+		});
+
+	}
+	$(document).ready(function() {
+		$("#loginNav_login").hide();
+		$("#loginNav_unlogin").show();
+		//alert("hello");
+		isLogin(); //在文档加载完成后发送一次请求验证是否已登录
+		
+	});
+</script>
+
+<script >
+	//处理注销点击事件
+	$(document).ready(function() {
+		$("#logout").click(function() {
+			//alert("点击了注销");
+			$.post("../islogin", //url
+			{ //请求参数
+				req_log : "logout"
+			},
+			//回调函数
+			function(data, status) {
+				//alert("数据: \n" + data + "\n状态: " + status);
+				if (data == "true") {
+					$("#loginNav_login").hide();
+					$("#loginNav_unlogin").show();
+					islogin=false;
+					//刷新当前页面
+					window.location.reload();
+				}
+			});
+
+		});
+	});
+</script>
+
+<script>
+//如果点击了历史订单和未乘车按钮
+	var ordersum=0; //全局变量
+	var orderArray=null;
+	var order_status="A";
+	function getHisOrder(btnID){
+
+		var orderclickID=btnID;
+		//alert(orderclickID);
+		order_status="";
+		if(orderclickID=="orderStatus_Y"){ //如果点击了未乘车按钮，查询已确认的订单
+			order_status="Y";
+			//设置表头：
+			$("#hisorder_table_caption_ID").text("未乘车订单详情");
+			$("#hisorder_table_thead_ID tr th").eq(6).text("");
+		}
+		else {
+			order_status="A"; //如果点击了历史订单按钮,则查询所有状态的订单
+			//设置表头第七列标题为：订单状态
+			$("#hisorder_table_caption_ID").text("历史订单详情");
+			$("#hisorder_table_thead_ID tr th").eq(6).text("订单状态");
+		}
+		
+		getOrder(); 
+		
+	}
+	
+	
+</script>
+
+<script>
+//获取订单数
+function getOrder()
+{
+
+	$.ajax({
+		dataType : "json", //数据类型为json格式
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		type : "POST",
+		url : "../hisorderqueryservlet",
+		data : {phoneNumber:phoneNumber,order_status:order_status},
+		statusCode : {
+			404 : function() {
+				alert('page not found');
+			}
+		},
+		success : function(data, status) {
+			//alert("message:"+data.result_status);	
+			$("#hisOrderID").removeClass("nodisplay"); //显示历史订单表格
+			if(data.result_status=="true"){
+				//alert("message:"+"查询历史订单成功!");
+				ordersum=data.ordersum;
+				orderArray=data.order;	
+				totalPages=ordersum%ordersPerPage==0 ? ordersum/ordersPerPage : ordersum/ordersPerPage+1;
+				totalPages=parseInt(totalPages);						
+				showOrder_PageOf(0);//显示第一页
+				
+				add_orderPage_btn_listener();//给分页链接按钮组添加点击事件监听							
+				
+			}						
+			else if(data.result_status=="false")					
+				window.wxc.xcConfirm("参数错误！", window.wxc.xcConfirm.typeEnum.error);							
+			else if(data.result_status=="no_hisOrder"){ //还没有历史订单
+				ordersum=0;
+				totalPages=0;				
+				var noorder_txt="您没有历史订单!";
+				if(order_status=="Y"){
+					noorder_txt="您没有未乘车的订单!";
+				}
+				var order_html="<tr><td colspan='8'>"+noorder_txt+"</td></tr>";
+				$("#hisorder_table_tbody_ID").html(order_html); //显示订单列表
+				window.wxc.xcConfirm(noorder_txt, window.wxc.xcConfirm.typeEnum.info);				
+				showOrder_PageOf(0);//显示第一页
+				add_orderPage_btn_listener(); ///给分页链接按钮组添加点击事件监听	
+			}
+		}
+	});//$.ajax结束
+	
+}
+
+
+</script>
+
+
+<script>
+//显示第num页订单
+var cur_page=0;//当前页
+var totalPages;//总页数
+var ordersPerPage=8;//每一页显示的订单数目
+function showOrder_PageOf(num)
+{
+	if(num>=ordersum)
+		return;
+	var startIndex=num*ordersPerPage;
+	var numPerPage=0; //每一页实际要显示的记录条数
+	if(startIndex+ordersPerPage>ordersum){
+		numPerPage=ordersum-startIndex;
+	}else numPerPage=ordersPerPage;
+	var order_html=""; var orderdateTime="";
+	for(var i=startIndex;i<startIndex+numPerPage;i++){
+		order_html+="<tr>"+"<td>"+orderArray[i].ticketID+"</td>"
+					+"<td>"+orderArray[i].departDateTime+"</td>"
+					+"<td>"+orderArray[i].startPoint+"</td>"
+					+"<td>"+orderArray[i].destination+"</td>"
+					+"<td>"+orderArray[i].price+"</td>";
+		orderdateTime=orderArray[i].orderdateTime.substring(0,orderArray[i].orderdateTime.indexOf('.')); //去掉.0		
+		order_html+="<td>"+orderdateTime+"</td>";
+		if(orderArray[i].status=="Y"&&order_status=="Y"){ //点击的是未乘车按钮
+			
+			order_html+="<td style='color: #1ab394;'><button id='"+orderArray[i].ticketID+"'";
+			order_html+="class='cancel_order_btn'>取消订单</button></td>";
+		}
+		else{  //点击的是历史订单按钮
+			
+			if(orderArray[i].status=="O"){
+				order_html+="<td style='color: #1ab394;'>已乘车</td>";
+			}
+			else if(orderArray[i].status=="Y"){
+				order_html+="<td style='color:blue;'>已确认</td>";
+			}
+			else if(orderArray[i].status=="N"){
+				order_html+="<td style='color:red;'>已取消</td>";
+			}
+		}
+		
+		order_html+="</tr>";				
+	}
+	
+	$("#hisorder_table_tbody_ID").html(order_html); //显示订单列表
+	
+	add_cancel_order_btn_listener();//给取消订票按钮添加事件监听
+	
+}
+</script>
+
+<script>
+//给取消订票按钮添加事件监听
+function add_cancel_order_btn_listener()
+{	
+	$(".cancel_order_btn").click(function(){
+		var ticketID=$(this).attr("id"); //获得订单编号
+		//alert("订单编号："+ticketID);		
+		var txt=  "您确定取消订单吗？";
+		var option = {
+				title: "消息",
+				btn: parseInt("0011",2),
+				onOk: function(){
+					console.log("确认啦");
+					//确认按钮
+					//alert("点击了确认");
+					$.ajax({
+						dataType : "json", //数据类型为json格式
+						contentType : "application/x-www-form-urlencoded; charset=utf-8",
+						type : "POST",
+						url : "../cancelorderservlet",
+						data :{ticketID:ticketID},
+						statusCode : {
+							404 : function() {
+								alert('page not found');
+							}
+						},
+						success : function(data, status) {
+							//alert("message:"+data);	
+							order_status="Y";
+							//刷新一下未乘车页面
+							getOrder();
+													
+						}										
+						
+					}); //$.ajax结束
+					
+											
+				}
+			}	
+		window.wxc.xcConfirm(txt, "custom", option);
+		
+	});
+}
+
+</script>
+
+
+<script>
+///分页按钮添加点击事件监听
+function add_orderPage_btn_listener()
+{
+	var setTotalCount =ordersum;
+	$('#orderpages_box').paging({
+		initPageNo : 1, // 初始页码
+		totalPages : totalPages, //总页数
+		totalCount : '合计' + setTotalCount + '条订单', // 条目总数
+		slideSpeed : 600, // 缓动速度。单位毫秒
+		jump : true, //是否支持跳转
+		callback : function(page) { // 回调函数
+			console.log(page);
+			//alert("当前页："+page);
+			showOrder_PageOf(page-1);
+		}
+	})
+}
+</script>
+
+
+
+<script>
+//处理导航栏点击按钮
+$(document).ready(function() {
+	$("#hisOrderID").hide();
+	$("#userInfoID").hide();
+	$("#chpwdID").hide();
+	//点击了订单按钮
+	$("#history_order_ID,#orderStatus_all,#orderStatus_Y").click(function() {
+		//alert("点击了订单按钮");
+		$("#userInfoID").hide();
+		$("#chpwdID").hide();
+		$("#hisOrderID").show();
+		isLogin(); //首先发生一次请求看是否已经登录
+		if(islogin==false){ //如果未登录
+			window.wxc.xcConfirm("您还未登录，请先登录！", window.wxc.xcConfirm.typeEnum.info);
+			//刷新页面
+			return;
+		}
+		else if(islogin==true){
+			getHisOrder($(this).attr("id"));	
+		}
+	
+	});
+	
+	//点击了个人资料按钮
+	$("#userInfoBtnID").click(function() {
+		//alert("点击了个人资料按钮");
+		$("#hisOrderID").hide();
+		$("#chpwdID").hide();
+
+		isLogin(); //首先发生一次请求看是否已经登录
+		if(islogin==false){ //如果未登录
+			window.wxc.xcConfirm("您还未登录，请先登录！", window.wxc.xcConfirm.typeEnum.info);
+			//刷新页面
+			return;
+		}
+		else if(islogin==true){
+			$("#userInfoID").show();
+			//修改一下手机号
+			$("#phoneNumberLabel").text(phoneNumber+"  已验证");
+			$("input").val("");
+			showUserInfo();
+			
+		}
+		
+	});
+	
+	//点击了修改密码按钮
+	$("#chpwdIDBtnID").click(function() {
+		//alert("点击了修改密码按钮");
+		$("#hisOrderID").hide();
+		$("#userInfoID").hide();	
+		$("input").val("");
+		isLogin(); //首先发生一次请求看是否已经登录
+		if(islogin==false){ //如果未登录
+			window.wxc.xcConfirm("您还未登录，请先登录！", window.wxc.xcConfirm.typeEnum.info);
+			//刷新页面
+			return;
+		}
+		else if(islogin==true){
+			$("#chpwdID").show();	
+		}
+		
+	});
+	
+});
+
+</script>
+
+
+<script>
+//alert("密码修改");
+function changePwd()
+{
+	//先做表单的检查
+	var oldPassword = document.forms["chpwdForm"]["oldPassword"].value;
+	var newPassword = document.forms["chpwdForm"]["newPassword"].value;
+	var confirmpwd = document.forms["chpwdForm"]["confirmpwd"].value;
+	
+	var flag = true;
+	if (oldPassword == null || oldPassword == "") {
+		//设置边框变红，提示请输入旧密码
+		$("#oldPasswordID").css({
+				"border" : "2px solid #ff0000"
+			});
+		$("#oldPasswordID").attr("placeholder", "请输入旧密码");		
+		flag = false;
+	}
+	if (newPassword == null || newPassword == "") {
+		//设置边框变红，提示请输入新密码
+		$("#newPasswordID").css({
+				"border" : "2px solid #ff0000"
+			});
+		$("#newPasswordID").attr("placeholder", "请输入新密码");
+		flag = false;
+	}
+	if (confirmpwd == null || confirmpwd == "") {
+		//设置边框变红，提示请输入新密码
+		$("#confirmpwdID").css({
+				"border" : "2px solid #ff0000"
+			});
+		$("#confirmpwdID").attr("placeholder", "请输入确认密码");
+		flag = false;
+	}
+	if (confirmpwd!=newPassword) {
+		//设置边框变红，提示请输入新密码
+		$("#confirmpwdID").css({
+				"border" : "2px solid #ff0000"
+			});
+		//alert("密码不一致")
+		window.wxc.xcConfirm("您输入的新密码和确认密码不一致", window.wxc.xcConfirm.typeEnum.info);
+		flag = false;
+	}
+	
+	if(flag==false){
+		return false;
+	}	
+	//ajax post
+	//首先查看旧密码是否正确
+	var txt=  "您确定修改密码吗？";
+		var option = {
+				title: "消息",
+				btn: parseInt("0011",2),
+				onOk: function(){
+					console.log("确认修改密码啦");
+					//alert("点击了确认");
+					$.ajax({
+						dataType : "json", //数据类型为json格式
+						contentType : "application/x-www-form-urlencoded; charset=utf-8",
+						type : "POST",
+						url : "../chpwdservlet",
+						data :{oldPassword:oldPassword,newPassword:newPassword},
+						statusCode : {
+							404 : function() {
+								alert('page not found');
+							}
+						},
+						success : function(data, status) {
+							//alert("message:"+data);	
+							 if(data.chpwd_result=="oldpwderror"){ //旧密码错误
+								 window.wxc.xcConfirm("您输入的旧密码有误", window.wxc.xcConfirm.typeEnum.error);
+								 
+							 }else if(data.chpwd_result=="success"){ //成功修改密码
+								 window.wxc.xcConfirm("您已成功修改密码", window.wxc.xcConfirm.typeEnum.success);
+								 
+							 }else{
+								 window.wxc.xcConfirm("修改失败", window.wxc.xcConfirm.typeEnum.error);
+							 }				 
+							
+							
+						}										
+						
+					}); //$.ajax结束
+																
+				}
+			}	
+		window.wxc.xcConfirm(txt, "custom", option);
+	
+
+	return false;
+}
+
+</script>
+
+
+<script>
+//输入框获得焦点和失去焦点事件
+$(document).ready(function() {
+	$("input").focus(function() {
+		$(this).css("background-color", "#ddd");
+		$(this).css({
+			"border" : "1px solid green"
+		});
+	}); 
+	
+	$("input").blur(function() {
+		$(this).css("background-color", "#fff");
+		
+	});
+	  
+});
+
+</script>
+
+
+<script>
+//显示个人资料的函数
+
+function showUserInfo()
+{	
+	//ajax请求获得个人资料
+	$.ajax({
+		dataType : "json", //数据类型为json格式
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		type : "POST",
+		url : "../getuserinfoservlet",
+		data :{},
+		statusCode : {
+			404 : function() {
+				alert('page not found');
+			}
+		},
+		success : function(data, status) {
+			//alert("message:"+data);	
+			if(data.userinfo_result=="true"){
+				if(data.name!=null){
+					//alert("用户名："+data.name);
+					$("#name").val(data.name);
+				}
+			 	if(data.nickname!=null){
+			 		$("#nickname").val(data.nickname);	
+			 	}
+			 	if(data.ID!=null){
+			 		$("#ID").val(data.ID);
+			 	}
+			 	if(data.emailAddress){
+			 		$("#emailAddress").val(data.emailAddress);
+			 	}
+				if(data.sex!=null){
+					if(data.sex=="男")
+						$("input[name=sex]").get(0).checked=true;
+					else if(data.sex=="女"){
+						//alert("女");
+						$("input[name=sex]").get(1).checked=true;
+					}
+						
+				}
+				if(data.isStudent!=null){
+					if(data.isStudent=="Y")
+						$("input[name=isstudent]").get(0).checked=true;
+					else if(data.isStudent=="N")
+						$("input[name=isstudent]").get(1).checked=true;
+				}
+				
+			}if(data.userinfo_result=="false"){
+				
+				//已退出登录刷新页面，
+			}
+			
+									
+		}										
+		
+	}); //$.ajax结束
+	
+	
+}
+</script>
+
+
+<script>
+///修改用户个人资料的函数
+function changeUserInfo()
+{
+	//alert("点击了修改资料按钮");	
+	//var name;var nickname;var ID ;var emailAddress;
+	var name = document.forms["userInfoForm"]["name"].value;
+	var nickname = document.forms["userInfoForm"]["nickname"].value;
+	var ID = document.forms["userInfoForm"]["ID"].value;
+	var emailAddress = document.forms["userInfoForm"]["emailAddress"].value;
+	var sexArray=document.getElementsByName("sex");
+
+	//alert($("input[type='radio']:checked").val()); 
+	//var sex=$('input:radio[name="sex"]:checked').val(); //这个方法获得的值居然为"",在其他页面又可以获得，好气啊
+	//var isStudent=$('input:radio[name="isstudent"]:checked').val();
+	//var sex=null; var isStudent=null;
+	var sexArray = document.getElementsByName("sex");
+	var sex=null;
+	for (var i = 0; i < sexArray.length; i++) {
+		if (sexArray[i].checked) {
+			//sex = sexArray[i].value;
+			if(i==0)
+				sex="男";
+			else if(i==1) sex="女";
+			break;
+		}
+	}
+	var isstudentArray = document.getElementsByName("isstudent");
+	var isStudent=null;
+	for (var i = 0; i < isstudentArray.length; i++) {
+		if (isstudentArray[i].checked) {
+			//sex = sexArray[i].value;
+			if(i==0)
+				isStudent="Y";
+			else if(i==1) isStudent="N";
+			break;
+		}
+	}
+
+	if(sex==""){
+		alert("sex为："+sex);
+	}
+
+	//alert("修改isStudent："+isStudent+"\n"+"sex:"+sex);
+	//确定修改吗？
+	$.ajax({
+		dataType : "json", //数据类型为json格式
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		type : "GET",
+		url : "../updateuserinfoservlet",
+		data :{name:name, nickname:nickname, sex:sex,ID:ID,emailAddress:emailAddress,isStudent:isStudent},
+		statusCode : {
+			404 : function() {
+				alert('page not found');
+			}
+		},
+		success : function(data, status) {
+			//alert("message:"+data);	
+			if(data.chinfo_result=="true"){
+				window.wxc.xcConfirm("修改成功", window.wxc.xcConfirm.typeEnum.success);
+				
+			}else{
+				window.wxc.xcConfirm("修改失败", window.wxc.xcConfirm.typeEnum.error);
+			}
+			
+		}										
+		
+	}); //$.ajax结束
+	
+	return false; //防止提交表单到本页面
+}
+
+</script>
+
+

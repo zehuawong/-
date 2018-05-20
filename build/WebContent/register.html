@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>注册界面</title>
+<link href="css/registerCSS/register.css" rel="stylesheet" type="text/css" />
+<script>
+	function validateForm() {
+		var phoneNumber = document.forms["registerForm"]["phoneNumber"].value;
+		var password = document.forms["registerForm"]["password"].value;
+		var password_confirm = document.forms["registerForm"]["password_confirm"].value;
+
+		var flag = true;
+		if (phoneNumber == null || phoneNumber == "") {
+			document.getElementById("phoneNumberError").innerHTML = "请输入手机号";
+			document.getElementById("phoneNumberError").setAttribute("style",
+					"visibility:visible;");
+			flag = false;
+
+		}
+		if (password == null || password == "") {
+			document.getElementById("passwdError").setAttribute("style",
+					"visibility:visible;");
+			flag = false;
+		}
+		if (password_confirm != password) {
+			document.getElementById("passwd_con_error").setAttribute("style",
+					"visibility:visible;");
+			flag = false;
+		}
+		if (flag == false)
+			return false;
+
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			// IE6, IE5 浏览器执行代码
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+				var flag = xmlhttp.responseText;
+				//alert(flag);
+				if (flag == "true"){
+					window.location.href = "reg_success.html?phoneNumber="+phoneNumber;
+				}
+					
+				else if (flag == "false") {
+					//alert(flag);
+					document.getElementById("phoneNumberError").innerHTML = "该用户名已存在，请登录";
+					document.getElementById("phoneNumberError").setAttribute(
+							"style", "visibility:visible;");
+					//document.write("hello world hhhhhhhh");
+					
+				}
+
+			}
+
+		}
+		xmlhttp.open("POST", "register", true);
+		xmlhttp.setRequestHeader("Content-type",
+				"application/x-www-form-urlencoded");
+		xmlhttp.send("phoneNumber=" + phoneNumber + "&password=" + password);
+		return false; //阻止提交表单到当前页面导致页面刷新
+
+	}
+
+	function phoneNumberInputFocus() {
+		document.getElementById("phoneNumberError").setAttribute("style",
+				"visibility:hidden;");
+		
+	}
+	function passwordInputFocus() {
+		document.getElementById("passwdError").setAttribute("style",
+				"visibility:hidden;");
+		document.getElementById("passwd_con_error").setAttribute("style",
+				"visibility:hidden;");
+	}
+</script>
+
+</head>
+<body>
+	<p style="color: #aabbcc; font-size: 35px; text-align: center;">欢迎您注册OnlineTicket会员!</p>
+
+	<div class="reg">
+		<div class="reg-content">
+			<form name="registerForm" action="register"
+				onsubmit="return validateForm();" method="post">
+
+				<div class="reg-content-item">
+					<label class="reg-label">*手机号：</label> <input class="reg-input"
+						onfocus="phoneNumberInputFocus()" name="phoneNumber" type="text"
+						placeholder="请输入手机号"></input> <span id="phoneNumberError"
+						class="reg_error" style="visibility: hidden;">请输入手机号</span>
+
+				</div>
+
+				<div class="reg-content-item">
+					<label class="reg-label">*密码：</label> <input class="reg-input"
+						name="password" type="password" placeholder="6-18位字母和数字组合"></input>
+					<span id="passwdError" class="reg_error"
+						style="visibility: hidden;">请输入密码</span>
+				</div>
+				<div class="reg-content-item">
+					<label class="reg-label">*确认密码：</label> <input class="reg-input"
+						onfocus="passwordInputFocus()" name="password_confirm"
+						type="password" placeholder="6-18位字母和数字组合"></input> <span
+						id="passwd_con_error" class="reg_error"
+						style="visibility: hidden;">密码不一致</span>
+				</div>
+				<div class="reg-content-item">
+					<button type="submit" class="reg-btn">注册</button>
+				</div>
+				<div class="reg-content-item">
+					<label>已有账户？</label><a href="login.html">登录</a>
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</html>
+
+

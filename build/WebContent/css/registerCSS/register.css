@@ -1,0 +1,68 @@
+body{
+	
+	background:url(../../images/bg.jpg);
+	background:url(../../images/loginBackgroud.png);
+	background-size:cover;
+}
+.reg{
+	width:400px;
+	height:360px;
+	background:rgba(255, 255, 255, .4);
+	border-style:solid;
+	border-color:#008000;
+	border-width:0px;
+	margin:auto;
+}
+
+.reg-content{
+	padding:15px 35px 20px 35px; 	
+		
+}
+.reg-content-item{
+	height:55px;
+	font-size:16px;
+	padding-top:4px;
+}
+
+.reg-label{
+	width:100px;
+	border-color:#008000;
+	border-width:2px;
+	font-size:16px;
+	float:left;
+	display: inline;
+}
+.reg-input{
+	width:220px;
+	height:30px;
+	background:rgba(255, 255, 255, .3);
+	border:1px solid #ccc;
+	/*color:#48aaac;*/
+	font-size:13px;
+	display: inline;
+}
+.reg-btn{
+	width:320px;
+	color:#fff;
+	padding:6px 12px; 
+	font-size:16px;
+	text-align:center;
+	background-color:#1ab394;
+	border-color:#1ab394;
+	border-radius:3px;
+	border:0px;
+}
+.reg-btn:hover{
+	background-color:#10f290;
+}
+.reg_error { 
+	margin-top:1px;
+	margin-left:100px;
+    color: #ED5565;
+    font-size:12px;
+}
+
+
+
+
+

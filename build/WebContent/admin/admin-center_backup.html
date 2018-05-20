@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>管理员中心界面</title>
+
+<link type="text/css" rel="stylesheet"
+	href="../css/admin-centercss/admin-center.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/homepageCSS/header_top.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/homepageCSS/header.css" />
+
+</head>
+
+<body>
+	
+	<div class="header_top">
+		<div class="w1000">
+			<ul id="loginNav_unlogin" class="login_menu left">
+
+				<li class="login_menu_item">您好，欢迎光临汽车票网上售票系统!</li>
+				<li class="login_menu_item">请</li>
+				<li class="login_menu_item"><a href="../login.html">登录</a></li>
+				<li class="login_menu_item"><a href="../register.html">注册</a></li>
+			</ul>
+			<ul id="loginNav_login" class="login_menu left">
+
+				<li class="login_menu_item">您好，<a id="nickName" href="user-center.html">&nbsp</a></li>
+
+				<li class="login_menu_item"><a id="logout" href="javascript:">注销</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+	<div class="header w1000">
+		<div class="site_logo_img left">
+			<a href="#"><img src="../images/busImage1.jpg"></img></a>
+		</div>
+		<div class="header_h left">
+			<h1>欢迎来到汽车票网上订票系统！</h1>
+			welcome to Bus Online Ticket System!
+		</div>
+
+	</div>
+	<div class="clear"></div>
+	<br />
+
+	<div class="admin-center w1000">
+		<div class="admin-nav">
+			<ul>
+				<li><a href="#" class="active" style="font-size: 20px;">主页</a></li>
+				<li><a style="font-size: 20px;">车辆信息管理</a></li>
+				<li><a href="#">查询车辆信息</a></li>
+				<li><a href="#">修改车辆信息</a></li>
+				<li><a href="#">删除信息</a></li>
+				<li><a href="#">添加新车信息</a></li>
+
+				<li><a style="font-size: 20px;">线路班次管理</a></li>
+				<li><a href="#">查询线路班次</a></li>
+				<li><a href="#">修改线路班次信息</a></li>
+				<li><a href="#">取消线路班次</a></li>
+				<li><a href="#">开通新线路班次</a></li>
+
+				<li><a style="font-size: 20px;">车票信息管理</a></li>
+				<li><a href="#">查询售票信息</a></li>
+
+				<li><a style="font-size: 20px;">管理员账户中心</a></li>
+				<li><a href="#">个人资料</a></li>
+				<li><a href="#">修改密码</a></li>
+
+			</ul>
+		</div>
+
+		<div class="user-content">
+
+			<div class="history-order" style="display1: none;">
+				<div class="history-order-nav">
+					<ul>
+						<li><a class="active" href="#">未乘车</a></li>
+						<li><a href="#">历史订单</a></li>
+					</ul>
+				</div>
+
+				<div class="history-order-list">
+					<table>
+						<caption>订单详情</caption>
+						<thead>
+							<tr>
+								<th>订单编号</th>
+								<th>乘车时间</th>
+
+								<th>始发站点</th>
+								<th>到达站点</th>
+								<th>票价</th>
+								<th>订单日期</th>
+								<th>订单状态</th>
+
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>20171104001001001</td>
+								<td>2017-11-04 8:00</td>
+								<td>湛江西站</td>
+								<td>深圳东站</td>
+								<td>￥150</td>
+								<td>2017-11-04 23:00:01</td>
+								<td style="color: #1ab394;">已乘车</td>
+
+							</tr>
+							<tr>
+								<td>20171104001001001</td>
+								<td>2017-11-04 8:00</td>
+								<td>湛江西站</td>
+								<td>深圳东站</td>
+								<td>￥150</td>
+								<td>2017-11-04 23:00:01</td>
+								<td style="color: #ff0000;">已取消</td>
+
+							</tr>
+							<tr>
+								<td>20171104001001001</td>
+								<td>2017-11-04 8:00</td>
+								<td>湛江西站</td>
+								<td>深圳东站</td>
+								<td>￥150</td>
+								<td>2017-11-04 23:00:01</td>
+								<td style="color: #ff0000;">已取消</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+
+
+			<div class="clear"></div>
+
+			<div class="userInfo">
+				<div class="userInfo-content">
+					<div class="userInfo-content-item">
+						<label class="userInfo-label">旧密码：</label> <input
+							class="userInfo-input" id="emailAddress" type="password"
+							placeholder="请输入旧密码"></input>
+					</div>
+					<div class="userInfo-content-item">
+						<label class="userInfo-label">新密码：</label> <input
+							class="userInfo-input" id="emailAddress" type="password"
+							placeholder="6-18位数字和字母组合"></input>
+					</div>
+					<div class="userInfo-content-item">
+						<label class="userInfo-label">确认密码：</label> <input
+							class="userInfo-input" id="emailAddress" type="password"
+							placeholder="6-18位数字和字母组合"></input>
+					</div>
+					<div class="reg-content-item">
+						<button type="submit" class="userInfo-btn" onclick="saveForm()">保存</button>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+

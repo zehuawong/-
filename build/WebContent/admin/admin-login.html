@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>管理员登录界面</title>
+<link href="../css/loginCSS/login.css" rel="stylesheet" type="text/css" />
+
+<script>
+	function validateForm() {
+		var username = document.forms["userloginForm"]["username"].value;
+		var password = document.forms["userloginForm"]["password"].value;
+		var flag = true;
+		if (username == null || username == "") {
+			document.getElementById("usernameError").setAttribute("style",
+					"visibility:visible;");
+			flag = false;
+
+		}
+		if (password == null || password == "") {
+			document.getElementById("passwordError").setAttribute("style",
+					"visibility:visible;");
+			flag = false;
+		}
+		//return flag;
+		if (flag == false)
+			return false;
+
+		//异步请求验证密码
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			// IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			// IE6, IE5 浏览器执行代码
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+				var flag=xmlhttp.responseText;
+				//alert(flag);
+				if(flag=="true")
+					window.location.href="admin-center.html";
+				else if(flag=="false"){
+					//alert(flag);
+					document.getElementById("errmsg").innerHTML = "您提供的账号和密码不符合";
+					document.getElementById("errmsg").setAttribute("style",
+					"visibility:visible;");
+					//document.write("hello world hhhhhhhh");
+					
+				}
+				else if(flag=="nouser"){
+					document.getElementById("errmsg").innerHTML = "该账号不存在";
+					document.getElementById("errmsg").setAttribute("style",
+					"visibility:visible;");
+				}
+				
+					
+			}
+			
+		}
+		xmlhttp.open("POST", "../adminloginservlet", true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");		
+		xmlhttp.send("username="+username+"&password="+password);
+		return false; //阻止提交表单到当前页面
+		//点击提交的时候，其实完成了两个动作，一个是你写的ajax提交数据，一个是form表单的自动提交，
+		//而且你在form中的action是为空的，就提交到当前页面，也就是刷新
+		
+	}
+	
+	function usernameInputFocus(x) {
+		document.getElementById("usernameError").setAttribute("style",
+				"visibility:hidden;");
+		document.getElementById("errmsg").setAttribute("style",
+				"visibility:hidden;");
+	}
+	function passwordInputFocus(x) {
+		document.getElementById("passwordError").setAttribute("style",
+				"visibility:hidden;");
+		document.getElementById("errmsg").setAttribute("style",
+				"visibility:hidden;");
+	}
+ 
+</script>
+
+</head>
+
+<body>
+
+	<p style="color: #aabbcc; font-size: 35px; text-align: center;">Hello,
+		Welcome back!</p>
+	<div class="tab">
+		<div class="tab_content">
+			<form name="userloginForm" 
+				onsubmit="return validateForm();" method="post">
+				<!--应该注意display:none和visibility：hidden的区别-->
+				<span id="errmsg" class="auth_error_msg" style=visibility:hidden;">您提供的账号或者密码有误</span>				 
+				<p>
+				<div class="tab_content_item">
+					<div class="auth_icon auth_icon_user "></div>
+					<div class="auth_input">
+						<input name="username" onfocus="usernameInputFocus(this)"
+							type="text" placeholder="账号"></input>
+					</div>
+					<div class="clear"></div>
+					<!-- 清除浮动 -->
+					<div class="auth_error">
+						<span id="usernameError" style="visibility: hidden;">请输入账号</span>
+					</div>
+				</div>
+				</p>
+
+				<p>
+				<div class="tab_content_item">
+					<div class="auth_icon auth_icon_pwd"></div>
+					<div class="auth_input">
+						<input name="password" onfocus="passwordInputFocus(this)"
+							type="password" placeholder="密码"></input>
+					</div>
+					<div class="clear"></div>
+					<!-- 清除浮动 -->
+					<div class="auth_error">
+						<span id="passwordError" style="visibility: hidden;">请输入密码</span>
+					</div>
+				</div>
+				</p>
+				<p>
+				<div class="icheckbox">
+					<input class="icheckbox_square" type="checkbox" /> <label>记住密码</label>
+				</div>
+				</p>
+
+				<p>
+					<!-- 
+			<input type="button" class="auth_login_btn"  onclick="validateForm()">登录</input>
+			 -->
+
+					<!-- 注意普通按钮type="button"和提交按钮的区别type="submit" , -->
+					<button type="submit" class="auth_login_btn">登录</button>
+
+				</p>
+				
+				<div class="clear"></div>
+			</form>
+		</div>
+	</div>
+	
+</body>
+
+</html>
+
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户修改密码</title>
+<link type="text/css" rel="stylesheet" href="../css/user-centercss/user-center.css"/>
+</head>
+<body>
+
+	
+	<div class="userInfo" style="display1: none;">
+		<div class="userInfo-content">
+			<form>
+				<div class="userInfo-content-item">
+					<label class="userInfo-label">*手机号：</label>							
+					<span>137123456789 已验证</span>								
+				</div>
+				<div class="userInfo-content-item">
+					<label class="userInfo-label">真实姓名：</label>							
+					<input class="userInfo-input" id="name" type="text" placeholder="1~20汉字或英文名"></input>	
+								
+				</div>
+				<div class="userInfo-content-item">
+					<label class="userInfo-label">昵称：</label>							
+					<input class="userInfo-input" id="nickname" type="text" placeholder="1~20汉字或英文名"></input>	
+								
+				</div>
+											
+				<div class="userInfo-content-item">
+					<label class="userInfo-label">身份证号：</label>							
+					<input class="userInfo-input" id="ID" type="text" placeholder="11位数字"></input>						
+				</div>
+				<div class="userInfo-content-item">
+					<label class="userInfo-label">邮箱地址：</label>							
+					<input class="userInfo-input" id="emailAddress" type="text" placeholder="11位数字"></input>						
+				</div>
+				<div class="userInfo-content-item">
+					<label class="userInfo-label">性别：</label>							
+					<input name="sex" type="radio" value="M" checked>男</input>	
+					<input name="sex" type="radio" value="F">女</input>						
+				</div>
+				<div class="userInfo-content-item">
+					<label class="userInfo-label">是否学生：</label>							
+					<input name="isstudent" type="radio" value="Y" checked>是</input>	
+					<input name="isstudent" type="radio" value="N">否</input>						
+				</div>
+				<div class="reg-content-item">
+					<button type="submit" class="userInfo-btn"  onclick="saveForm()">保存</button> 				
+				</div>
+				
+			</form>
+							
+		</div>
+		</div>		
+	</div>
+	
+
+
+</body>
+</html>

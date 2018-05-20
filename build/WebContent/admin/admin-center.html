@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>管理员中心界面</title>
+
+<link type="text/css" rel="stylesheet"
+	href="../css/admin-centercss/admin-center.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/admin-centercss/search.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/admin-centercss/search_result.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/homepageCSS/header_top.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/homepageCSS/header.css" />
+<link rel="stylesheet" type="text/css" href="../css/xcConfirm.css" />
+<link rel="stylesheet" type="text/css"
+	href="../css/admin-centercss/admin-paging.css" />
+
+<!-- 百度CDN jquery库 -->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- jquery+CSS实现的弹出框js文件 -->
+<script src="../js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<!-- 分页功能 -->
+<script src="../js/paging.js"></script>
+<script src="../js/adminjs/admin.js"></script>
+<script src="../js/adminjs/adminbus.js"></script>
+<script src="../js/adminjs/addbus.js"></script>
+<script src="../js/adminjs/adminroute.js"></script>
+<script src="../js/adminjs/addroute.js"></script>
+<script src="../js/adminjs/adminRouteTicket.js"></script>
+<script src="../js/adminjs/addRouteTicket.js"></script>
+<script src="../js/adminjs/adminorder.js"></script>
+<script src="../js/adminjs/adminChpwd.js"></script>
+
+</head>
+
+<body>
+	<div class="header_top">
+		<div class="w1000">
+			<ul id="loginNav_unlogin" class="login_menu left">
+
+				<li class="login_menu_item">您好，欢迎光临汽车票网上售票系统!</li>
+				<li class="login_menu_item">请</li>
+				<li class="login_menu_item"><a href="admin-login.html">登录</a></li>
+
+			</ul>
+			<ul id="loginNav_login" class="login_menu left">
+
+				<li class="login_menu_item">您好，<a id="username"
+					href="admin-center.html"></a></li>
+
+				<li class="login_menu_item"><a id="logout" href="javascript:">注销</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+
+	<div class="header w1000">
+		<div class="site_logo_img left">
+			<a href="../index.html"><img src="../images/busImage1.jpg"></img></a>
+		</div>
+		<div class="header_h left">
+			<h1>欢迎来到汽车票网上订票系统！</h1>
+			<br>welcome to Bus Online Ticket System!
+		</div>
+
+	</div>
+	<div class="clear"></div>
+	<br />
+
+	<div class="admin-center w1000">
+		<!-- 管理员导航栏 -->
+		<div class="admin-nav">
+			<ul>
+				<li><a href="admin-center.html" class="active"
+					style="font-size: 20px;">管理员主页</a></li>
+				<li><a style="font-size: 20px;">车辆信息管理</a></li>
+				<li><a href="javascript:" class="admin_bus_nav">查询车辆信息</a></li>
+				<li><a href="javascript:" class="admin_bus_nav">修改车辆信息</a></li>
+				<li><a href="javascript:" class="admin_bus_nav">删除车辆信息</a></li>
+				<li><a href="javascript:" id="add_bus_nav">添加新车信息</a></li>
+
+				<li><a style="font-size: 20px;">线路班次管理</a></li>
+				<li><a href="javascript:" class="admin_route_nav">查询线路班次</a></li>
+				<li><a href="javascript:" class="admin_route_nav">修改线路班次信息</a></li>
+				<li><a href="javascript:" class="admin_route_nav">取消线路班次</a></li>
+				<li><a href="javascript:" id="add_route_nav">开通新线路</a></li>
+				<li><a href="javascript:" id="add_RT_nav">增加新班次</a></li>
+
+				<li><a style="font-size: 20px;">车票信息管理</a></li>
+				<li><a href="javascript:" class="admin_ticket_nav">查询售票信息</a></li>
+
+				<li><a style="font-size: 20px;">管理员账户中心</a></li>				 
+				<li><a href="javascript:" id="chpwd_nav">修改密码</a></li>
+
+
+			</ul>
+		</div>
+
+		<div class="admin-content">
+
+			<!-- 车辆信息管理查询，修改，删除 -->
+			<div class="bus-content nodisplay">
+				<div class="admin-content-nav">
+					<ul>
+						<li><a>车辆信息管理</a></li>
+					</ul>
+				</div>
+
+				<div class="search w790">
+					<div class="search_menu">
+						<form name="searchbusForm" onsubmit="return validatebusForm();"
+							method="POST">
+							<div class="search_menu_item">请选择查询字段：</div>
+							<div class="search_menu_item">
+								<select name="searchbus_option" class="search_input w140" id="searchbus_key_ID">
+									<option value="all">所有</option>
+									<option value="busID">汽车编号</option>
+									<option value="busNum">车牌号</option>
+									<option value="busType">车型</option>
+									<option value="busDriver">司机姓名</option>
+									<option value="phonenumber">司机电话号码</option>
+								</select>
+							</div>
+							<div class="search_menu_item">
+								<input name="searchbus_value"   id="searchbus_value_ID"
+									class="search_input" type="text" list="bus_itemlist" />
+								<datalist id="bus_itemlist">
+									<!-- 下拉列表js+jquery ajax动态生成 -->
+								</datalist>
+							</div>
+							<div class="search_menu_item">
+								<button class="search_submit" type="submit">搜索</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<!-- 车辆查询结果表格 -->
+				<div class="search_result ">
+					<table>
+						<caption id="bus_table_caption_ID">车辆信息详情</caption>
+						<thead id="bus_table_thead_ID">
+							<tr>
+								<th>汽车编号</th>
+								<th>车牌号</th>
+								<th>载客量</th>
+								<th>车型</th>
+								<th>司机姓名</th>
+								<th>司机电话</th>
+
+							</tr>
+						</thead>
+						<tbody id="bus_table_tbody_ID">
+							 
+
+						</tbody>
+					</table>
+				</div>
+
+				<hr style="width: 100%; border-color: #ddd; border-top: 1px;" />
+				<br>
+				<div class="box" id="buspages_box"></div>
+				<!-- 查询结果表格结束 -->
+
+			</div>
+			<!-- 车辆信息管理结束 -->
+
+			<!--添加新车辆信息-->
+			<div class="addbus-content nodisplay">
+				<div class="admin-content-nav">
+					<ul>
+						<li><a href="javascript:" id="addbusbtnID">添加新车信息</a></li>
+					</ul>
+				</div>
+
+				<!-- 车辆查询结果表格 -->
+				<div class="search_result ">
+					<table>
+						<caption id="addbus_table_caption_ID">请输入车辆信息</caption>
+						<thead id="addbus_table_thead_ID">
+							<tr>
+								<th>车牌号</th>
+								<th>载客量</th>
+								<th>车型</th>
+								<th>司机姓名</th>
+								<th>司机电话</th>
+
+							</tr>
+						</thead>
+						<tbody id="addbus_table_tbody_ID">
+							 
+
+						</tbody>
+					</table>
+				</div>
+
+ 
+
+			</div>
+			<!-- 添加新车辆信息结束 -->
+
+			<!-- 线路班次信息管理查询，修改，删除 -->
+			<div class="route-content nodisplay">
+				<div class="admin-content-nav">
+					<ul>
+						<li><a href="javascript:" id="admin_route_btn_ID">线路信息管理</a></li>
+						<li><a href="javascript:" id="admin_RT_btn_ID">班次信息管理</a></li>
+					</ul>
+				</div>
+				<!-- 线路信息管理 -->
+				<div class="admin-route-content nodisplay">
+					<div class="search w790" id="search_route">
+						<div class="search_menu">
+							<form name="searchrouteForm" onsubmit="return validateRForm();"
+								method="POST">
+								<div class="search_menu_item">起始城市：</div>
+								<div class="search_menu_item">
+									<input name="route_sc_value" class="search_input" type="text" id="route_sc_ID"
+										list="route_sc_itemlist" />
+									<datalist id="route_sc_itemlist">
+										<!-- 下拉列表js+jquery ajax动态生成 -->
+									</datalist>
+								</div>
+								<div class="search_menu_item">终点城市：</div>
+								<div class="search_menu_item">
+									<input name="route_ec_value" class="search_input" type="text" id="route_ec_ID"
+										list="route_ec_itemlist" />
+									<datalist id="route_ec_itemlist">
+										<!-- 下拉列表js+jquery ajax动态生成 -->
+									</datalist>
+								</div>
+
+								<div class="search_menu_item">
+									<button class="search_submit" type="submit">搜索</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+					<!-- 线路查询结果表格 -->
+					<div class="search_result ">
+						<table>
+							<caption id="route_table_caption_ID">线路信息详情</caption>
+							<thead id="route_table_thead_ID">
+								<tr>
+									<th>线路号</th>
+									<th>始发站点</th>
+									<th>到达站点</th>
+									<th>状态</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody id="route_table_tbody_ID">
+
+							 
+
+							</tbody>
+						</table>
+
+
+						<hr style="width: 100%; border-color: #ddd; border-top: 1px;" />
+						<br>
+						<div class="box" id="Rpages_box"></div>
+						<!-- 线路查询结果表格结束 -->
+					</div>
+					<br />
+					<br />
+					<br />
+					<br />
+				</div>
+				
+				
+				<!-- 班次信息管理 -->
+				<div class="admin-RT-content nodisplay">
+					<div class="search w790" id="search_route">
+						<div class="search_menu">
+							<form name="searchRTForm"
+								onsubmit="return validateRTForm();" method="POST">
+								<div class="search_menu_item">起始城市</div>
+								<div class="search_menu_item">
+									<input name="RT_sc_value" class="search_input" id="adminRT_sc_ID"
+										style="width: 100px;" type="text"
+										list="routeticket_sc_itemlist" />
+									<datalist id="routeticket_sc_itemlist">
+										<!-- 下拉列表js+jquery ajax动态生成 -->
+									</datalist>
+								</div>
+								<div class="search_menu_item">终点城市</div>
+								<div class="search_menu_item">
+									<input name="RT_ec_value" class="search_input" id="adminRT_ec_ID"
+										style="width: 100px;" type="text"
+										list="routeticket_ec_itemlist" />
+									<datalist id="routeticket_ec_itemlist">
+										<!-- 下拉列表js+jquery ajax动态生成 -->
+									</datalist>
+								</div>
+								<!-- 要求出发日期必须大于今日日期 -->
+								<div class="search_menu_item">出发日期</div>
+								<div class="search_menu_item">
+									<input name="departureDate"  type="date" id="adminRT_ddate_ID"
+										style="width: 135px;" class="search_input" />
+								</div>
+								<div class="search_menu_item">
+									<button class="search_submit" type="submit"
+										style="width: 100px;">搜索</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+					<!-- 班次查询结果表格 -->
+					<!-- 要求出发日期必须大于今日日期 -->
+					<div class="search_result ">
+						<table>
+							<caption id="adminRT_table_caption_ID">班次信息详情</caption>
+							<thead id="adminRT_table_thead_ID">
+								<tr>
+									<th>班次号</th>
+									<th>始发站点</th>
+									<th>到达站点</th>
+									<th>车牌号</th>
+									<th>出发时间</th>
+									<th>预计耗时</th>
+									<th>总票数</th>
+									<th>余票</th>
+									<th>价格</th>
+									<th></th>
+	
+								</tr>
+							</thead>
+							<tbody id="adminRT_table_tbody_ID">
+
+							 
+							</tbody>
+						</table>
+
+
+						<hr style="width: 100%; border-color: #ddd; border-top: 1px;" />
+						<br>
+						<div class="box" id="RTpages_box"></div>
+						<!-- 班次查询结果表格结束 -->
+					</div>
+
+				</div>
+
+
+
+			</div>
+			<!-- 线路班次信息管理结束 -->
+
+
+			<!-- 开通新线路 -->
+			<div class="addroute-content nodisplay">
+				<div class="admin-content-nav">
+					<ul>
+						<li><a href="javascript:" id="add_route_btn_ID">开通新线路</a></li>
+					</ul>
+				</div>
+				<!-- 开通新线路 -->
+
+				<!-- 请输入新线路信息 -->
+				<div class="search_result ">
+					<table>
+						<caption id="addroute_table_caption_ID">请输入线路信息</caption>
+						<thead id="addroute_table_thead_ID">
+							<tr>
+								<th>出发城市</th>
+								<th>始发站点</th>
+								<th>到达城市</th>
+								<th>到达站点</th>
+
+							</tr>
+						</thead>
+						<tbody id="addroute_table_tbody_ID">
+
+						</tbody>
+					</table>
+
+				</div>
+
+
+
+			</div>
+			<!-- 开通新线路结束 -->
+
+
+			<!-- 增加新班次 -->
+			<div class="addRT-content nodisplay">
+				<div class="admin-content-nav">
+					<ul>
+						<li><a href="javascript:" id="add_RT_btn_ID">增加新班次</a></li>
+					</ul>
+				</div>
+				<div class="search w790" id="search_RT">
+					<div class="search_menu">
+						<form name="searchRForm"
+							onsubmit="return validateRIDForm();" method="POST">
+							<div class="search_menu_item">请输入线路号：</div>
+							<div class="search_menu_item">
+								<input name="addRT_RID_value" class="search_input" id="addRT_RID_ID"
+									style="width: 100px;" type="text" list="addRT_RID_itemlist" />
+								<datalist id="addRT_RID_itemlist">
+									<!-- 下拉列表js+jquery ajax动态生成 -->
+								</datalist>
+							</div>
+							<div class="search_menu_item">
+								<button class="search_submit" type="submit"
+									style="width: 100px;">搜索</button>
+							</div>
+
+						</form>
+					</div>
+
+				</div>
+				<!-- 线路查询结果表格 -->
+				<div class="search_result ">
+					<table>
+						<caption id="addRT_R_table_caption_ID">线路详情</caption>
+						<thead>
+							<tr>
+								<th>出发城市</th>
+								<th>始发站点</th>
+								<th>到达城市</th>
+								<th>到达站点</th>
+							</tr>
+						</thead>
+						<tbody id="addRT_R_table_tbody_ID">
+							<tr>
+		 
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+
+				<!-- 要求出发日期必须大于今日日期 -->
+				<div class="search_result">
+					<table>
+						<caption>请输入班次信息</caption>
+						<thead>
+							<tr>
+								<th>出发日期</th>
+								<th>出发时间</th>
+								<th>车牌号</th>
+								<th>预计耗时</th>
+								<th>总票数</th>
+								<th>价格</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead >
+						<tbody id='addRT_table_tbody_ID'>
+							 
+
+						</tbody>
+					</table>
+					
+					
+						
+				</div>
+
+			</div>
+			<!-- 增加新班次结束 -->
+
+
+
+			<!-- 车票订单信息管理、查询 -->
+			<div class="ticket-content nodisplay">
+				<div class="admin-content-nav">
+					<ul>
+						<li><a href="javascript:">查询售票、历史订单信息</a></li>
+					</ul>
+				</div>
+				<div class="search w790">
+					<div class="search_menu">
+						<form name="searchorderForm" onsubmit="return validateorderForm();"
+							method="POST">
+							<div class="search_menu_item">请选择查询字段：</div>
+							<div class="search_menu_item">
+								<select name="searchorder_option" class="search_input w140" id="searchorder_key_ID">
+									<option value="ticketID">订单编号</option>
+									<option value="name">乘客姓名</option>
+									<option value="phonenumber">乘客手机号</option>
+									<option value="ID">乘客身份证号</option>									 
+								</select>
+							</div>	
+							<div class="search_menu_item">
+								<input name="order_value" class="search_input" id="searchorder_value_ID"
+									style="width: 160px;" type="text" list="order_itemlist" />
+								<datalist id="order_itemlist">
+									<!-- 下拉列表js+jquery ajax动态生成 -->
+								</datalist>
+							</div>
+							<div class="search_menu_item">
+								<button class="search_submit" type="submit"
+									style="width: 100px;">搜索</button>
+							</div>						 
+						</form>
+					</div>
+
+				</div>
+				<!-- 售票查询结果表格 -->
+				<div class="search_result ">
+					<table>
+						<caption>售票订单详情</caption>
+						<thead>
+							<tr>
+								<th>订单编号</th>
+								<th>乘车时间</th>
+								<th>始发站点</th>
+								<th>到达站点</th>
+								<th>票价</th>
+								<th>订单日期</th>
+								<th>订单状态</th>
+							</tr>
+						</thead>
+						<tbody id="hisorder_table_tbody_ID">
+							<tr>
+
+							</tr>
+						</tbody>
+					</table>
+					<hr style="width: 100%; border-color: #ddd; border-top: 1px;" />
+					<br>
+					<div class="box" id="orderpages_box"></div>
+					
+				</div>
+
+			</div>
+			<!-- 车票信息管理查询结束 -->
+
+
+
+			<div class="clear"></div>
+			
+			<!-- 修改密码 -->
+			<div class="adminInfo nodisplay" id="chpwdID">
+				<div class="adminInfo-content">
+					<form name="chpwdForm" onsubmit="return changePwd();" method="post">
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">旧密码：</label> <input
+								class="adminInfo-input" name="oldPassword" id="oldPasswordID"
+								type="password" placeholder="请输入旧密码"></input>
+						</div>
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">新密码：</label> <input
+								class="adminInfo-input" name="newPassword" id="newPasswordID"
+								type="password" placeholder="6-18位数字和字母组合"></input>
+						</div>
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">确认密码：</label> <input
+								class="adminInfo-input" name="confirmpwd" id="confirmpwdID"
+								type="password" placeholder="6-18位数字和字母组合"></input>
+						</div>
+						<div class="adminInfo-content-item">
+							<button type="submit" class="adminInfo-btn">保存</button>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+
+
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+

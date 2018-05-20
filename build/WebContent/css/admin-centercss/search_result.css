@@ -1,0 +1,102 @@
+
+.search_result {
+	margin-top: 0px;
+	/*border: 1px solid #1ab394;*/
+	border-top: 1px;
+	box-sizing: border-box;
+	/*min-height:560px;*/
+	height:100%;
+}
+
+.search_result table {
+	width: 100%;
+	margin-top: 0px;
+	border-collapse: collapse; /*消除单元格间距*/
+
+}
+.search_result th{
+	text-align: center;
+}
+
+.search_result caption {
+	padding: 10px;
+	text-align: center;
+	font-size: 20px;
+	color: #fff;
+	/*border: 1px solid #1ab394;*/
+	border-bottom: solid 1px #1ab394;
+	background: #1ab394;
+}
+
+.search_result tr {
+	height: 50px;
+}
+
+.search_result tr:hover {
+	background: #1ab394;
+	background: rgba(26, 179, 147, .4);
+}
+
+.search_result td {
+	text-align: center;
+}
+.search_result td input {
+	height:25px;
+	width:90px;
+}
+
+.search_result hr {
+	width: 100%;
+	border-color: #ddd;
+	border-top: 1px;
+}
+
+.w160{
+	width:160px;
+}
+
+
+.edit_btn{
+	width:50px;
+	height:30px;
+	border-width:0px;
+	background:#ddd;
+	color:green;
+	border-radius:3px;
+}
+.edit_btn:hover{	
+	background: #1ab394;
+	color:white;
+	
+}
+.save_btn{
+	width:50px;
+	height:30px;
+	border-width:0px;
+	background:#ddd;
+	color:green;
+	border-radius:3px;
+}
+.save_btn:hover{	
+	background: #1ab394;
+	color:white;	
+}
+
+.delete_btn{
+	width:50px;
+	height:30px;
+	border-width:0px;
+	background:#ddd;
+	color:red;
+	border-radius:3px;
+}
+
+.delete_btn:hover{	
+	background:#80cf00;	
+	background: #1ab394;
+}
+
+
+
+
+

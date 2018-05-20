@@ -1,0 +1,35 @@
+.header_top
+{
+	width:100%;
+	height:30px;
+	background: #f7f7f7;	
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.w1000{
+	width:1000px;
+	margin:0 auto;
+}
+.login_menu {
+    color: #008000;
+    margin:0 auto;
+}
+.left {
+    float:left;
+}
+.login_menu .login_menu_item {	
+    display: inline;
+    padding: 0 10px 0 0;
+}
+.hide{
+	display: none;
+}
+.right {
+    float:right;
+}
+
+
+
+
+
+

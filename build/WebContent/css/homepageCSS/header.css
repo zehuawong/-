@@ -1,0 +1,41 @@
+
+.header{
+	height:120px;
+	background:#fff;
+	border-bottom: 1px solid #808080;
+	 
+}
+
+.w1000{
+	width:1000px;
+	margin:0 auto;
+}
+
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+.clear{
+  clear:both;
+}
+.site_logo_img{	
+	height:100px;
+	padding:10px 0 10px;
+	/*border-radius:100px;  圆形方式显示logo*/
+}
+.header_h{
+	padding-top:10px;
+	margin-top:10px;
+	margin-left:20px;
+	color:#808000;
+}
+
+
+
+
+
+
+
+

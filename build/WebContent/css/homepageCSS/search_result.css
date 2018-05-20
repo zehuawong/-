@@ -1,0 +1,103 @@
+.w1000 {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.search_result {
+	margin-top: 15px;
+	border: 1px solid #1ab394;
+	border-top: 1px;
+	box-sizing: border-box;
+	min-height:560px;
+	height:100%;
+}
+
+.search_result table {
+	width: 100%;
+	margin-top: 0px;
+	border-collapse: collapse; /*消除单元格间距*/
+}
+
+.search_result caption {
+	padding: 10px;
+	text-align: center;
+	font-size: 20px;
+	color: #fff;
+	border: 1px solid #1ab394;
+	border-bottom: solid 1px #1ab394;
+	background: #1ab394;
+}
+
+.search_result tr {
+	height: 50px;
+}
+
+.search_result tr:hover {
+	background: #1ab394;
+	background: rgba(26, 179, 147, .4);
+}
+
+.search_result td {
+	text-align: center;
+}
+
+.book_ticket {
+	width: 60px;
+	height: 40px;
+	padding-right: 5px;
+}
+
+.book_ticket_btn {
+	width: 60px;
+	height: 30px;
+	border-width: 0px;
+	background: #1ab394;
+	color: #fff;
+	border-radius: 3px;
+}
+
+.book_ticket_btn:hover {
+	background: #4CAF50;
+	background: #80cf00;
+}
+
+.search_result hr {
+	width: 100%;
+	border-color: #ddd;
+	border-top: 1px;
+}
+
+/*分页*/
+ul.pagination {
+	display: inline-block;
+	padding: 0;
+	margin: 0;
+}
+
+ul.pagination li {
+	display: inline;
+}
+
+ul.pagination li a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	transition: background-color .3s;
+	border: 1px solid #ddd;
+}
+
+ul.pagination li a.active {
+	background-color: #4CAF50;
+	color: white;
+	border: 1px solid #4CAF50;
+}
+
+ul.pagination li a:hover:not (.active ){
+	background-color: #ddd;
+}
+
+div.right {
+	text-align: right;
+	margin-right: 20px;
+}

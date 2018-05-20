@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>管理员中心界面</title>
+
+<link type="text/css" rel="stylesheet"
+	href="../css/admin-centercss/admin-center.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/admin-centercss/search.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/admin-centercss/search_result.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/homepageCSS/header_top.css" />
+<link type="text/css" rel="stylesheet"
+	href="../css/homepageCSS/header.css" />
+
+<link rel="stylesheet" type="text/css" href="../css/xcConfirm.css" />
+<link rel="stylesheet" type="text/css"
+	href="../css/admin-centercss/admin-paging.css" />
+
+<!-- 百度CDN jquery库 -->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- jquery+CSS实现的弹出框js文件 -->
+<script src="../js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<!-- 分页功能 -->
+<script src="../js/paging.js"></script>
+
+</head>
+
+<body>
+	<div class="header_top">
+		<div class="w1000">
+			<ul id="loginNav_unlogin" class="login_menu left">
+
+				<li class="login_menu_item">您好，欢迎光临汽车票网上售票系统!</li>
+				<li class="login_menu_item">请</li>
+				<li class="login_menu_item"><a href="../login.html">登录</a></li>
+				<li class="login_menu_item"><a href="../register.html">注册</a></li>
+			</ul>
+			<ul id="loginNav_login" class="login_menu left">
+
+				<li class="login_menu_item">您好，<a id="nickName"
+					href="admin-center.html"></a></li>
+
+				<li class="login_menu_item"><a id="logout" href="javascript:">注销</a></li>
+			</ul>
+
+		</div>
+	</div>
+
+
+	<div class="header w1000">
+		<div class="site_logo_img left">
+			<a href="../index.html"><img src="../images/busImage1.jpg"></img></a>
+		</div>
+		<div class="header_h left">
+			<h1>欢迎来到汽车票网上订票系统！</h1>
+			<br>welcome to Bus Online Ticket System!
+		</div>
+
+	</div>
+	<div class="clear"></div>
+	<br />
+
+	<div class="admin-center w1000">
+		<div class="admin-nav">
+			<ul>
+				<li><a href="#" class="active" style="font-size: 20px;">管理员主页</a></li>
+				<li><a style="font-size: 20px;">车辆信息管理</a></li>
+				<li><a href="#">查询车辆信息</a></li>
+				<li><a href="#">修改车辆信息</a></li>
+				<li><a href="#">删除车辆信息</a></li>
+				<li><a href="#">添加新车信息</a></li>
+
+				<li><a style="font-size: 20px;">线路班次管理</a></li>
+				<li><a href="#">查询线路班次</a></li>
+				<li><a href="#">修改线路班次信息</a></li>
+				<li><a href="#">取消线路班次</a></li>
+				<li><a href="#">开通新线路班次</a></li>
+
+				<li><a style="font-size: 20px;">车票信息管理</a></li>
+				<li><a href="#">查询售票信息</a></li>
+
+				<li><a style="font-size: 20px;">管理员账户中心</a></li>
+				<li><a href="#">个人资料</a></li>
+				<li><a href="#">修改密码</a></li>
+
+
+			</ul>
+		</div>
+
+		<div class="admin-content">
+
+			<!-- 车辆信息管理查询，修改，删除 -->
+			<div class="bus-content">
+				<div class="admin-content-nav">
+					<ul>
+						<li><a>车辆信息管理</a></li>
+					</ul>
+				</div>
+
+				<div class="search w790">
+					<div class="search_menu">
+						<form name="searchbusForm" onsubmit="return validatebusForm();"
+							method="POST">
+							<div class="search_menu_item">请选择查询字段：</div>
+							<div class="search_menu_item">
+								<select name="searchbus_option" class="search_input w140">
+									<option value="busID">汽车编号</option>
+									<option value="busNum">车牌号</option>
+									<option value="busType">车型</option>
+									<option value="busDriver">司机姓名</option>
+									<option value="phonenumber">司机电话号码</option>
+								</select>
+							</div>
+							<div class="search_menu_item">
+								<input name="searchbus_value" id="searchbusID"
+									class="search_input" type="text" list="ec_itemlist" />
+								<datalist id="ec_itemlist">
+									<!-- 下拉列表js+jquery ajax动态生成 -->
+								</datalist>
+							</div>
+							<div class="search_menu_item">
+								<button class="search_submit" type="submit">搜索</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+				<!-- 车辆查询结果表格 -->
+				<div class="search_result ">
+					<table>
+						<caption id="bus_table_caption_ID">订单详情</caption>
+						<thead id="bus_table_thead_ID">
+							<tr>
+								<th>汽车编号</th>
+								<th>车牌号</th>
+								<th>载客量</th>
+								<th>车型</th>
+								<th>司机姓名</th>
+								<th>司机电话</th>
+
+							</tr>
+						</thead>
+						<tbody id="bus_table_tbody_ID">
+							<tr id="">
+								<td>10000</td>
+								<td><input value="粤B666888"></input></td>
+								<td><input value="100"></input></td>
+								<td><input value="大型卧铺高一级"></input></td>
+								<td><input value="张三"></input></td>
+								<td><input value="12345678911"></input></td>
+								<td><button class="editbus_btn" value="10000" >编辑</button></td>
+								<td><button class="deletebus_btn" value="10000">删除</button></td>
+								
+							</tr>
+							<tr id="10000">
+								<td>10000</td>
+								<td>粤B666888</input></td>
+								<td>100</td>
+								<td>大型卧铺高一级</td>
+								<td>张三</td>
+								<td>12345678911</td>
+								<td><button class="editbus_btn" value="10000" >编辑</button></td>
+								<td><button class="deletebus_btn" value="10000">删除</button></td>
+							
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+
+				<hr style="width: 100%; border-color: #ddd; border-top: 1px;" />
+				<br>
+				<div class="box" id="orderpages_box"></div>
+				<!-- 查询结果表格结束 -->
+
+			</div><!-- 车辆信息管理结束 -->
+			
+
+			<!-- 历史订单 -->
+			<div class="history-order nodisplay" id="hisOrderID">
+				<div class="history-order-nav">
+					<ul>
+						<li><a href="javascript:" id="orderStatus_Y">未乘车</a></li>
+						<li><a href="javascript:" id="orderStatus_all">历史订单</a></li>
+					</ul>
+				</div>
+
+				<div class="history-order-list ">
+					<table>
+						<caption id="hisorder_table_caption_ID">订单详情</caption>
+						<thead id="hisorder_table_thead_ID">
+							<tr>
+								<th>订单编号</th>
+								<th>乘车时间</th>
+								<th>始发站点</th>
+								<th>到达站点</th>
+								<th>票价</th>
+								<th>订单日期</th>
+								<th>订单状态</th>
+								<!-- 添加按钮：取消订单 -->
+
+							</tr>
+						</thead>
+						<tbody id="hisorder_table_tbody_ID">
+
+						</tbody>
+					</table>
+				</div>
+
+				<hr style="width: 100%; border-color: #ddd; border-top: 1px;" />
+				<br>
+				<div class="box" id="orderpages_box"></div>
+			</div>
+
+
+			<div class="clear"></div>
+			<!-- 个人资料和密码 -->
+
+			<div class="adminInfo nodisplay" id="adminInfoID">
+				<div class="adminInfo-content">
+					<form name="adminInfoForm" onsubmit="return changeUserInfo();"
+						method="POST">
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">*手机号：</label> <span
+								id="phoneNumberLabel">&nbsp;</span>
+						</div>
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">真实姓名：</label> <input
+								class="adminInfo-input" id="name" type="text"
+								placeholder="1~20汉字或英文名"></input>
+
+						</div>
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">昵称：</label> <input
+								class="adminInfo-input" id="nickname" type="text"
+								placeholder="1~20汉字或英文名"></input>
+
+						</div>
+
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">身份证号：</label> <input
+								class="adminInfo-input" id="ID" type="text"
+								placeholder="请输入身份证号"></input>
+						</div>
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">邮箱地址：</label> <input
+								class="adminInfo-input" id="emailAddress" type="text"
+								placeholder="请输入邮箱地址"></input>
+						</div>
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">性别：</label> <input name="sex"
+								type="radio" value="男">男</input> <input name="sex" type="radio"
+								value="女">女</input>
+						</div>
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">是否学生：</label> <input
+								name="isstudent" type="radio" value="Y">是</input> <input
+								name="isstudent" type="radio" value="N">否</input>
+						</div>
+						<div>
+							<button type="submit" class="adminInfo-btn"
+								id="changeUserInfoBtn">保存</button>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+
+			<div class="clear"></div>
+
+			<!-- 修改密码 -->
+			<div class="adminInfo nodisplay" id="chpwdID">
+				<div class="adminInfo-content">
+					<form name="chpwdForm" onsubmit="return changePwd();" method="post">
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">旧密码：</label> <input
+								class="adminInfo-input" name="oldPassword" id="oldPasswordID"
+								type="password" placeholder="请输入旧密码"></input>
+						</div>
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">新密码：</label> <input
+								class="adminInfo-input" name="newPassword" id="newPasswordID"
+								type="password" placeholder="6-18位数字和字母组合"></input>
+						</div>
+						<div class="adminInfo-content-item">
+							<label class="adminInfo-label">确认密码：</label> <input
+								class="adminInfo-input" name="confirmpwd" id="confirmpwdID"
+								type="password" placeholder="6-18位数字和字母组合"></input>
+						</div>
+						<div class="adminInfo-content-item">
+							<button type="submit" class="adminInfo-btn">保存</button>
+						</div>
+
+					</form>
+
+				</div>
+			</div>
+
+
+		</div>
+
+	</div>
+
+</body>
+
+</html>
+
+<script>
+$(document).ready(function() {
+	$(".editbus_btn").click(function() {
+		 var busID=$(this).val();
+		// alert("点击了编辑"+busID);
+		//$(this).removeClass("editbus_btn");
+		
+		//$(this).addClass("savebus_btn");
+		$(this).text("保存");
+		
+		$(this).toggleClass("savebus_btn");
+		
+		
+	});
+	
+	$(".savebus_btn").click(function() {
+		var busID=$(this).val();
+		
+		alert(busID);
+		
+		
+	});
+	
+	
+});
+
+</script>
+
+
+
+
+
+

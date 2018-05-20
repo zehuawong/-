@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册成功页面</title>
+
+<link href="css/registerCSS/reg_ok.css" rel="stylesheet" type="text/css" />
+<!-- 百度CDN jquery库 -->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+</head>
+<body>
+	<p style="color: #aabbcc; font-size: 35px; text-align: center;">欢迎您注册OnlineTicket会员!</p>
+
+	<div class="reg-ok">
+		<div class="reg-ok-icon"></div>
+		<div class="reg-ok-msg">
+			<label style="font-size: 25px; color: #4CAF50;">恭喜您，注册成功！</label></br> <label
+				style="font-size: 15px; color: #808000;">您的账号是：</label> <label
+				id="userid" style="font-size: 15px; color: #808000;">&nbsp;</label>
+		</div>
+		<div class="clear"></div>
+		<div class="btn-center">
+			<a href="login.html"><button class="reg-ok-loginbtn">立即登录</button>
+			</a>
+		</div>
+	</div>
+</body>
+</html>
+
+
+<script>
+	//文档就绪事件,在文档加载完成后发送一次请求验证是否已登录
+	$(document).ready(function() {
+		var phoneNumber = getUrlParam("phoneNumber");		
+		$("#userid").text(phoneNumber);
+
+	});
+</script>
+
+<script>
+	//获取url中的参数
+	function getUrlParam(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		if (r != null)
+			return unescape(r[2]);
+		return null; //返回参数值
+	}
+</script>
+
+

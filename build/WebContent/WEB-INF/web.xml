@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>BusTicket</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>login.html</welcome-file>
+
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>user.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/userloginServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>RegisterServlet</servlet-name>
+		<servlet-class>user.RegisterServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RegisterServlet</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>IsLoginServlet</servlet-name>
+		<servlet-class>isLogin.IsLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>IsLoginServlet</servlet-name>
+		<url-pattern>/islogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TicketQueryServlet</servlet-name>
+		<servlet-class>ticket.TicketQueryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TicketQueryServlet</servlet-name>
+		<url-pattern>/ticketqueryservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CityQueryServlet</servlet-name>
+		<servlet-class>city.CityQueryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CityQueryServlet</servlet-name>
+		<url-pattern>/cityqueryservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>BookTicketServlet</servlet-name>
+		<servlet-class>ticket.BookTicketServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BookTicketServlet</servlet-name>
+		<url-pattern>/bookticketservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>HisOrderQueryServlet</servlet-name>
+		<servlet-class>order.HisOrderQueryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HisOrderQueryServlet</servlet-name>
+		<url-pattern>/hisorderqueryservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CancelOrderServlet</servlet-name>
+		<servlet-class>order.CancelOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CancelOrderServlet</servlet-name>
+		<url-pattern>/cancelorderservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ChpwdServlet</servlet-name>
+		<servlet-class>user.ChpwdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChpwdServlet</servlet-name>
+		<url-pattern>/chpwdservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GetUserInfoServlet</servlet-name>
+		<servlet-class>user.GetUserInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetUserInfoServlet</servlet-name>
+		<url-pattern>/getuserinfoservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>UpdateUserInfoServlet</servlet-name>
+		<servlet-class>user.UpdateUserInfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateUserInfoServlet</servlet-name>
+		<url-pattern>/updateuserinfoservlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- 以下是管理员部分的servlet -->
+	<servlet>
+		<servlet-name>AdminLoginServlet</servlet-name>
+		<servlet-class>admin.AdminLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminLoginServlet</servlet-name>
+		<url-pattern>/adminloginservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>adminIsLoginServlet</servlet-name>
+		<servlet-class>admin.IsLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>adminIsLoginServlet</servlet-name>
+		<url-pattern>/adminisloginservlet</url-pattern>
+	</servlet-mapping>
+	<!-- 线路管理 -->
+	<servlet>
+		<servlet-name>SelectRouteServlet</servlet-name>
+		<servlet-class>admin.route.SelectRouteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SelectRouteServlet</servlet-name>
+		<url-pattern>/selectrouteservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpdateRouteServlet</servlet-name>
+		<servlet-class>admin.route.UpdateRouteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateRouteServlet</servlet-name>
+		<url-pattern>/updaterouteservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpdateNewRouteServlet</servlet-name>
+		<servlet-class>admin.route.UpdateNewRouteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateNewRouteServlet</servlet-name>
+		<url-pattern>/updatenewrouteservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddRouteServlet</servlet-name>
+		<servlet-class>admin.route.AddRouteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddRouteServlet</servlet-name>
+		<url-pattern>/addrouteservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>StartRouteServlet</servlet-name>
+		<servlet-class>admin.route.StartRouteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StartRouteServlet</servlet-name>
+		<url-pattern>/startrouteservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>StopRouteServlet</servlet-name>
+		<servlet-class>admin.route.StopRouteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StopRouteServlet</servlet-name>
+		<url-pattern>/stoprouteservlet</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 班次管理 -->
+	<servlet>
+		<servlet-name>SelectRTServlet</servlet-name>
+		<servlet-class>admin.RT.SelectRTServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SelectRTServlet</servlet-name>
+		<url-pattern>/selectRTservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpdateRTServlet</servlet-name>
+		<servlet-class>admin.RT.UpdateRTServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateRTServlet</servlet-name>
+		<url-pattern>/updateRTservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddRTServlet</servlet-name>
+		<servlet-class>admin.RT.AddRTServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddRTServlet</servlet-name>
+		<url-pattern>/addRTservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SelectRouteByIDServlet</servlet-name>
+		<servlet-class>admin.RT.SelectRouteByIDServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SelectRouteByIDServlet</servlet-name>
+		<url-pattern>/selectroutebyidservlet</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 管理车辆信息 -->
+	<servlet>
+		<servlet-name>SelectBusServlet</servlet-name>
+		<servlet-class>admin.bus.SelectBusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SelectBusServlet</servlet-name>
+		<url-pattern>/selectbusservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpdateBusServlet</servlet-name>
+		<servlet-class>admin.bus.UpdateBusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateBusServlet</servlet-name>
+		<url-pattern>/updatebusservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddBusServlet</servlet-name>
+		<servlet-class>admin.bus.AddBusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddBusServlet</servlet-name>
+		<url-pattern>/addbusservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteBusServlet</servlet-name>
+		<servlet-class>admin.bus.DeleteBusServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DeleteBusServlet</servlet-name>
+		<url-pattern>/deletebusservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>adminHisOrderQueryServlet</servlet-name>
+		<servlet-class>admin.order.HisOrderQueryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>adminHisOrderQueryServlet</servlet-name>
+		<url-pattern>/adminhisorderqueryservlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>adminChpwdServlet</servlet-name>
+		<servlet-class>admin.ChpwdServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>adminChpwdServlet</servlet-name>
+		<url-pattern>/adminchpwdservlet</url-pattern>
+	</servlet-mapping>
+
+</web-app>

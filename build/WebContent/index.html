@@ -1,0 +1,545 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>汽车票网上订票系统</title>
+<!-- 注意修改：合并静态文件 -->
+<link type="text/css" rel="stylesheet" href="css/homepageCSS/homepage.css" />
+<link type="text/css" rel="stylesheet" href="css/homepageCSS/header_top.css" />
+<link type="text/css" rel="stylesheet" href="css/homepageCSS/header.css" />
+<link type="text/css" rel="stylesheet" href="css/homepageCSS/search_city.css" />
+<link type="text/css" rel="stylesheet" href="css/homepageCSS/search_result.css" />
+<link rel="stylesheet" type="text/css" href="css/xcConfirm.css" />
+<link rel="stylesheet" href="css/paging.css">
+
+<!-- 百度CDN jquery库 -->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- jquery+CSS实现的弹出框js文件 -->
+<script src="js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
+<!-- 分页功能 -->
+<script src="js/paging.js"></script>
+
+
+</head>
+<body>
+	<div class="header_top">
+		<div class="w1000">
+			<ul id="loginNav_unlogin" class="login_menu left">
+
+				<li class="login_menu_item">您好，欢迎光临汽车票网上售票系统!</li>
+				<li class="login_menu_item">请</li>
+				<li class="login_menu_item"><a href="login.html">登录</a></li>
+				<li class="login_menu_item"><a href="register.html">注册</a></li>
+			</ul>
+
+			<ul id="loginNav_login" class="login_menu left">
+
+				<li class="login_menu_item">您好，<a id="nickName" href="user/user-center.html">&nbsp</a></li>
+
+				<li class="login_menu_item"><a id="logout" href="javascript:">注销</a></li>
+			</ul>
+			<ul class="login_menu right">
+				<li class="login_menu_item"><a href="user/user-center.html" id="myorder_href">我的订单</a></li>
+				<li class="login_menu_item"><a href="user/user-center.html" id="myaccount_href">我的账户</a></li>
+			</ul>
+
+
+		</div>
+
+
+	</div>
+
+	<div class="header w1000">
+		<div class="site_logo_img left">
+			<a href="index.jsp"><img src="images/busImage1.jpg"></img></a>
+		</div>
+		<div class="header_h left">
+			<h1>欢迎来到汽车票网上订票系统</h1>
+			<br><span class="header_span">Welcome to Bus Online Ticket System!</span>
+		</div>
+
+	</div>
+
+	<div class="search_city w1000">
+		<div class="search_city_menu">
+			<form name="searchCityForm" onsubmit="return validateForm();"
+				method="get">
+				<div class="search_city_menu_item">出发城市</div>
+				<div class="search_city_menu_item">
+					<input name="startCity" id="startCityID" class="search_city_input" value="深圳"
+						type="text" list="sc_itemlist"/>
+					<datalist id="sc_itemlist">	
+					<!-- 下拉列表js+jquery ajax动态生成 -->								 
+					</datalist>
+				</div>
+				<div class="search_city_menu_item">到达城市</div>
+				<div class="search_city_menu_item">
+					<input name="endCity" id="endCityID" class="search_city_input" value="广州"
+						type="text" list="ec_itemlist"/>
+					<datalist id="ec_itemlist">	
+					<!-- 下拉列表js+jquery ajax动态生成 -->				
+					</datalist>
+				</div>
+				<div class="search_city_menu_item">出发日期</div>
+				<div class="search_city_menu_item">
+					<input name="departureDate" id="departureDateID" type="date"
+						class="search_city_input"  />
+				</div>
+				<div class="search_city_menu_item">
+					<button class="search_city_submit" type="submit">搜索</button>
+				</div>
+			</form>
+		</div>
+
+	</div>
+
+
+	<div class="search_result w1000">
+		<table id="ticket_table">
+			<caption id="table_caption_city">---></caption>
+			<thead>
+				<tr>
+					<th>出发时间</th>
+					<th>始发站点</th>
+					<th>到达站点</th>
+					<th>车型</th>
+					<th>预计耗时</th>
+					<th>余票</th>
+					<th>票价</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="ticket_table_tbody">
+				 <!-- 正在查询中 -->
+			</tbody>
+			
+		</table>
+		<br />
+		<hr />	
+		<br/>
+		<div class="box" id="ticketpages_box"></div>
+	</div>
+	<!-- 查询结果表格结束 -->
+	
+</body>
+</html>
+
+<script>
+	//文档就绪事件,在文档加载完成后设置出发日期为当前日期值
+	$(document).ready(function() {
+		// 开始写 jQuery 代码...	
+		var d=new Date();
+		var day=d.getDate();
+		if(day<10){
+			day="0"+day;
+		}
+		var month=d.getMonth();
+		if(month<10){
+			month="0"+(month+1);
+		}
+		var year=d.getFullYear();
+		var date=year+"-"+month+"-"+day;
+		$('input[type="date"]').val(date);
+		//$('#departureDateID').attr("min",date);//设置最小日期，最早出发时间
+		//alert(date);
+	});
+</script>
+
+<script>
+	//文档就绪事件,在文档加载完成后发送一次请求验证是否已登录
+	$(document).ready(function() {
+		// 开始写 jQuery 代码...	
+		$("#loginNav_login").hide();
+		$("#loginNav_unlogin").show();
+		//alert("hello");
+		$.post("islogin", //url
+		{ //请求参数
+			req_log : "islogin"
+		},
+		//回调函数
+		function(data, status) {
+			//alert("数据: \n" + data + "\n状态: " + status);
+			if (data == "false") {
+				$("#loginNav_login").hide();
+				$("#loginNav_unlogin").show();
+			} else {
+				$("#loginNav_unlogin").hide();
+				$("#loginNav_login").show();
+				$("#nickName").text(data);
+			}
+
+		});
+
+	});
+</script>
+
+<script type="text/javascript">
+	//处理注销点击事件
+	$(document).ready(function() {
+		$("#logout").click(function() {
+			//alert("点击了注销");
+			$.post("islogin", //url
+			{ //请求参数
+				req_log : "logout"
+			},
+			//回调函数
+			function(data, status) {
+				//alert("数据: \n" + data + "\n状态: " + status);
+				if (data == "true") {
+					$("#loginNav_login").hide();
+					$("#loginNav_unlogin").show();
+					
+				}
+			});
+
+		});
+	});
+</script>
+
+<script>
+	//处理(出发城市-到达城市-日期)搜索按钮点击事件
+	//表单校验和提交，校验用户输入数据
+	function validateForm() {
+		
+		var startCity = document.forms["searchCityForm"]["startCity"].value;
+		var endCity = document.forms["searchCityForm"]["endCity"].value;
+		var departureDate = document.forms["searchCityForm"]["departureDate"].value;
+		var flag = true;
+		if (startCity == null || startCity == "") {
+			$("#startCityID").css({
+				"border" : "2px solid #ff0000"
+			});
+			$("#startCityID").attr("placeholder", "请输入出发城市");
+			//alert("null");
+			flag = false;
+		}
+		if (endCity == null || endCity == "") {
+			$("#endCityID").css({
+				"border" : "2px solid #ff0000"
+			});
+			$("#endCityID").attr("placeholder", "请输入到达城市");
+			//alert("null");
+			flag = false;
+		}
+		if (departureDate == null || departureDate == "") {
+			$("#departureDateID").css({
+				"border" : "2px solid #ff0000"
+			});
+			$("#departureDateID").attr("placeholder", "请输入出发日期");
+			//alert("null");
+			flag = false;
+		}
+		if (flag == false) {
+			return false;
+		}
+		$("#table_caption_city").text(startCity+"-->"+endCity+" "+departureDate);//设置表格标题
+		//设置提示信息：正在查询中……
+		$("#ticket_table_tbody").html("<tr><td colspan='8'>正在查询中……</td></tr>");		
+		ticketQuery(startCity,endCity,departureDate); //发送一次查询车票请求
+		
+		return false; //防止提交表单到本页导致页面刷新
+	}
+	
+</script>
+<script>
+//jquery+ajax发送一次查询车票请求的函数
+//全局变量定义和初始化：查询结果车票总数(json数据)目的：为了对结果进行分页
+var ticketsum=0; //查询结果车票记录总数
+var ticketArray=null; //查询结果车票记录json数组
+var cur_page=0; //当前页
+var totalPages=0; //总页数,注意：赋值为整型
+var ticketPerPage=7; //每一页显示的记录数
+var ticket_html=""; 
+
+function ticketQuery(startCity,endCity,departureDate)
+{
+
+	$.ajax({
+		dataType : "json", //数据类型为json格式
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		type : "GET",
+		url : "ticketqueryservlet",
+		data : {startCity : startCity, endCity : endCity, departureDate : departureDate},
+		statusCode : {
+			404 : function() {
+				alert('page not found');
+			}
+		},
+		success : function(data, status) {
+			//alert("数据: \n" + data.result + "\n状态: " + status+"行数："+data.ticketsum);
+			if(data.result=="noticket"){
+				//alert("无此班次的车票或该线路暂未开通");					
+				$("#ticket_table_tbody").html("<tr><td colspan='8'>无此班次的车票或该线路暂未开通</td></tr>");
+				ticketsum=0;
+				totalPages=0;
+				add_ticketpage_a_listener();//给分页链接按钮组添加点击事件监听		
+				//注意colspan='8' 是单引号不是双引号，否则引发错误。
+			}				
+			else if(data.result=="yesticket"){
+				//对查询结果进行分页
+				ticket_html="";
+				ticketsum=parseInt(data.ticketsum);
+				//alert("车票总数"+ticketsum);
+				ticketArray=data.ticket; //获得车票查询结果数组
+				cur_page=0;//当前页				
+				//总页数
+				totalPages=ticketsum%ticketPerPage==0 ? ticketsum/ticketPerPage : ticketsum/ticketPerPage+1;			
+				totalPages=parseInt(totalPages); //注意：要转整型，如果是浮点型则会可能多一页出来
+				//alert("总页数"+totalPages);	
+				showPageOf(0); //显示第一页
+				add_ticketpage_a_listener();//给分页链接按钮组添加点击事件监听				
+						
+				
+			}
+			
+		}
+	});
+}
+
+</script>
+
+
+<script>
+//给分页链接按钮组添加点击事件监听
+function add_ticketpage_a_listener()
+{
+	var setTotalCount =ticketsum;
+	$('#ticketpages_box').paging({
+		initPageNo : 1, // 初始页码
+		totalPages : totalPages, //总页数
+		totalCount : '合计' + setTotalCount + '条数据', // 条目总数
+		slideSpeed : 1000, // 缓动速度。单位毫秒
+		jump : true, //是否支持跳转
+		callback : function(page) { // 回调函数
+			console.log(page);
+			//alert("当前页："+page);
+			showPageOf(page-1);
+		}
+	})
+
+}
+	
+</script>
+
+
+
+<script>
+//函数：响应分页按钮的点击，显示第pagenum页的车票记录
+function showPageOf(num)
+{
+	//alert("选择了页："+num);
+	if(num>=totalPages)
+		return;
+	var startIndex=num*ticketPerPage;	
+	//计算每一页实际要显示的记录条数，防止记录不足ticketPerPage，或者最后一页不够ticketPerPage
+	var numPerPage=0; //每一页实际要显示的记录条数
+	if(startIndex+ticketPerPage>ticketsum){
+		numPerPage=ticketsum-startIndex;		
+	}else numPerPage=ticketPerPage;
+	
+	//alert("开始索引："+startIndex);
+	ticket_html="";
+	for(var i=startIndex;i<startIndex+numPerPage;i++){	
+		ticket_html+="<tr>"+"<td>"+ticketArray[i].departureTime+"</td>"+
+		"<td>"+ticketArray[i].startPoint+"</td>"+
+		"<td>"+ticketArray[i].destination+"</td>"+
+		"<td>"+ticketArray[i].busType+"</td>"+
+		"<td>"+ticketArray[i].duration+"</td>"+
+		"<td>"+ticketArray[i].seatsLeft+"</td>"+
+		"<td>"+"￥"+ticketArray[i].price+"</td>"+
+		"<td><button id='"+ticketArray[i].routeTicketID+"' class='book_ticket_btn'";
+		if(ticketArray[i].status=='N'){ //如果车票已过期 ，该票不可订，设置订票按钮失效（不可点击）
+			ticket_html+=" disabled='disabled'";
+			ticket_html+=">已过期</button></td></tr>";
+		} 
+		else ticket_html+=">购票</button></td></tr>";		
+	}
+	//alert(ticket_html);
+	$("#ticket_table_tbody").html(ticket_html);	
+	//设置过期的按钮变灰绿色
+	$(".book_ticket_btn:disabled").css({
+		"background-color": "rgba(26,179,148,0.4)"
+	});
+	
+	add_bookticket_btn_listener(); //订票按钮监听事件
+
+}
+
+
+</script>
+
+
+<script>
+	$(document).ready(function() {
+		//或者$("input")即可
+		//输入框获得焦点和失去焦点事件
+		$("#startCityID,#endCityID,#departureDateID").focus(function() {
+			$(this).css("background-color", "#ddd");
+			$(this).css({
+				"border" : "1px solid green"
+			});
+		});
+		$("#startCityID,#endCityID,#departureDateID").blur(function() {
+			$(this).css("background-color", "#ffffff");
+			$(this).css({
+				"border" : "1px solid green"
+			});
+		});
+		//输入框内容发生改变时候触发的事件,发送一个GET请求查询城市名称
+		$("#startCityID,#endCityID").on('input',function(e){ 			
+			  //alert('Changed!'+$(this).val()+$(this).attr("name")); 
+			  if($(this).val()=="") //空值的时候不发送请求
+				  return;
+			  var cityname=$(this).attr("name");
+			  var cityvalue=$(this).val();
+			  $.ajax({
+					dataType : "json", //数据类型为json格式
+					contentType : "application/x-www-form-urlencoded; charset=utf-8",
+					type : "GET",
+					url : "cityqueryservlet"+"?cityname="+$(this).attr("name")+"&cityvalue="+$(this).val(),
+					statusCode : {
+						404 : function() {
+							alert('page not found');
+						}
+					},
+					success : function(data, status) {
+						//alert("数据: \n" +data+status);
+						var listOptionHtml="";
+						if(data.result=="nocity"){													
+							listOptionHtml+="<option "+"value='"+"无城市:"+cityvalue+"的相关信息"+"'/>";						
+						}
+						else if(data.result=="yescity"){
+							var citysum=parseInt(data.citysum);							
+							for(var i=0;i<citysum;i++){
+								//alert("i="+i+"城市："+data.city.value[i]);
+								listOptionHtml+="<option "+"value='"+data.city.value[i]+"'/>";								 
+							}							
+						}
+						//alert(listOptionHtml);													
+						//alert(cityname);
+						if(cityname=="startCity"){
+							$("#sc_itemlist").html(listOptionHtml);			
+						}
+						else if(cityname=="endCity"){
+							$("#ec_itemlist").html(listOptionHtml);			
+						}
+					} 
+				});
+			  
+			  
+			});
+	});
+	
+</script>
+
+<script>
+ //给购票按钮监听点击事件
+function add_bookticket_btn_listener(){
+	$(".book_ticket_btn").click(function(){
+		var routeTicketID=$(this).attr("ID");		
+		//alert("购票监听事件"+"订票ID:"+routeTicketID);
+		var tr=$(this).parent().parent(); //获取当前行<tr>父元素
+		
+		//book_ticketID
+		//首先发送一个请求验证用户是否已登录
+		var islogin=false;
+		var phoneNumber=null;
+		$.post("islogin", //url
+			{ //请求参数
+				req_log : "islogin"
+			},		
+			function(data, status) { //回调函数
+				//alert("数据: \n" + data + "\n状态: " + status);
+				if (data == "false") {
+					$("#loginNav_login").hide();
+					$("#loginNav_unlogin").show();					
+					islogin=false;
+				} else {
+					$("#loginNav_unlogin").hide();
+					$("#loginNav_login").show();
+					$("#nickName").text(data);
+					islogin=true;
+					phoneNumber=data;
+				}
+				
+				if(islogin==false){
+					//此处改进：弹出选择框让用户选择是否去登录，实现更美观的界面					
+					var txt="您还未登录，请先登录！";
+					//弹出框
+					window.wxc.xcConfirm(txt, window.wxc.xcConfirm.typeEnum.info);					
+				}
+				else if(islogin==true){
+					//弹出选择对话框：是否订票
+					//$获取购票信息
+					var departureTime=tr.children("td").get(0).innerHTML;
+					var startPoint=tr.children("td").get(1).innerHTML;
+					var destination=tr.children("td").get(2).innerHTML;				
+					var price=tr.children("td").get(6).innerHTML;	
+					var txt="";
+					txt+="订票人手机号:&nbsp;"+phoneNumber+"<br/>";					
+					txt+="始发站点:"+startPoint+"&nbsp;到达站点:"+destination+"<br/>";
+					txt+="出发时间:"+departureTime+"&nbsp;&nbsp;&nbsp;票价:"+ price+"<br/>";
+					
+					var option = {
+						title: "请确认购票信息",
+						btn: parseInt("0011",2),
+						onOk: function(){	//如果点击了确认购票按钮	
+							///console.log("确认啦");									
+							$.ajax({
+								dataType : "json", //数据类型为json格式
+								contentType : "application/x-www-form-urlencoded; charset=utf-8",
+								type : "POST",
+								url : "bookticketservlet",
+								data : {routeTicketID:routeTicketID},
+								statusCode : {
+									404 : function() {
+										alert('page not found');
+									}
+								},
+								success : function(data, status) {
+									//alert("message:"+data.result);
+									if(data.result=="true"){
+										//alert("message:"+"订票成功!");
+										window.wxc.xcConfirm("恭喜您，订票成功！", window.wxc.xcConfirm.typeEnum.success);
+										//重新发送一次查询车票请求
+										//此处还需改进：如果用户对输入框进行了修改，但是又未提交查询
+										validateForm();
+										//ticketQuery(startCity,endCity,departureDate);
+									}
+									
+									else if(data.result=="false")
+										//alert("message:"+"参数错误!");
+										window.wxc.xcConfirm("参数错误！", window.wxc.xcConfirm.typeEnum.error);							
+									else if(data.result=="noticket"){
+										var noticket_txt="抱歉，票已卖完，下次来早点哦!";
+										window.wxc.xcConfirm(noticket_txt, window.wxc.xcConfirm.typeEnum.info);
+										validateForm();
+									}
+								}
+							});//$.ajax结束
+							
+							
+							
+						}//选择ok确定购票按钮结束
+					}
+					
+					window.wxc.xcConfirm(txt, "custom", option); //确认订票按钮弹窗					
+					
+				} //islogin==true结束
+				
+				
+		});
+				
+	});
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
